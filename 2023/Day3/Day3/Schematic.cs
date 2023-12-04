@@ -11,6 +11,7 @@ namespace Day3
         public Vector2 Size { get; private set; }
         private string[] _rows;
         private const char _emptyChar = '.';
+        private const char _gearSymbol = '*';
         
         public Schematic(string[] rows)
         {
@@ -36,6 +37,9 @@ namespace Day3
             if (c == _emptyChar) return false;
             return true;
         }
+
+        public bool IsGear(int x, int y) => IsGear(GetChar(x, y));
+        public bool IsGear(char c) => c == _gearSymbol;
 
         public List<int?> GetPartNumbers(int x, int y) => GetPartNumbers(new Vector2(x, y));
         public List<int?> GetPartNumbers(Vector2 point)
