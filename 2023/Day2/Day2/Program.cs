@@ -15,7 +15,10 @@ namespace Day2
             var games = File.ReadAllLines("input.txt").Select(gi=> new Game(gi));
             var gamesPossible = games.Where(g => g.IsPossible(red, green, blue));
             var sumOfGameIds = gamesPossible.Sum(g => g.IdNumber);
-            Console.WriteLine($"{gamesPossible.Count()} games possible.  Ids sum {sumOfGameIds}.");
+            var sumOfPowers = games.Sum(g => g.Power);
+            
+            Console.WriteLine($"Part1: {gamesPossible.Count()} games possible.  Ids sum {sumOfGameIds}.");
+            Console.WriteLine($"Part2: {sumOfPowers} Sum of power.");
         }
     }
 }

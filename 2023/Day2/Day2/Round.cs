@@ -7,7 +7,7 @@ namespace Day2
 {
     public class Round
     {
-        private Dictionary<string, int> _cubes = new();
+        public Dictionary<string, int> Cubes { get; private set; } = new();
         public int Red => GetCube(Colors.Red);
         public int Green => GetCube(Colors.Green);
         public int Blue => GetCube(Colors.Blue);
@@ -25,9 +25,9 @@ namespace Day2
             return true;
         }
 
-        private int GetCube(string color)
+        public int GetCube(string color)
         {
-            if (_cubes.TryGetValue(color, out int cubes))
+            if (Cubes.TryGetValue(color, out int cubes))
                 return cubes;
             return 0;
         }
@@ -35,7 +35,7 @@ namespace Day2
         private void AddCube(string input)
         {
             var x = input.Trim().Split(" ");
-            _cubes.Add(x[1], int.Parse(x[0]));
+            Cubes.Add(x[1], int.Parse(x[0]));
         }
 
         public void Print()
