@@ -2,8 +2,6 @@ namespace Day5;
 
 public class Mapping
 {
-    // public Category From { get; set; }
-    // public Category To { get; set; }
     public Int64 DestinationStart { get; set; }
     public Int64 SourceStart { get; set; }
     public Int64 RangeLength { get; set; }

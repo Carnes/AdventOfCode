@@ -1,20 +1,40 @@
-﻿using Day5;
+﻿using System.Diagnostics;
+using Day5;
 
+var sw = new Stopwatch();
+sw.Start();
 // var ip = new MapProcessor("inputExample.txt");
 var ip = new MapProcessor("input.txt");
 
 var minLocation = Int64.MaxValue;
 var minSeed = Int64.MaxValue;
-foreach (var seed in ip.Seeds)
+// foreach (var seed in ip.Seeds)
+// {
+//     var seedLocation = ip.Get(Category.seed, Category.location, seed);
+//     if (seedLocation < minLocation)
+//     {
+//         minLocation = seedLocation;
+//         minSeed = seed;
+//     }
+// }
+
+foreach (var seedRange in ip.GetSeedsAsRange())
 {
-    var seedLocation = ip.Get(Category.seed, Category.location, seed);
-    if (seedLocation < minLocation)
+    Console.Write($"Seed: {seedRange.Item1} + {seedRange.Item2}");
+    for (var seed = seedRange.Item1; seed <= seedRange.Item1 + seedRange.Item2; seed++)
     {
-        minLocation = seedLocation;
-        minSeed = seed;
+        var seedLocation = ip.Get(Category.seed, Category.location, seed);
+        if (seedLocation < minLocation)
+        {
+            minLocation = seedLocation;
+            minSeed = seed;
+        }
     }
+    Console.WriteLine($" :: {sw.Elapsed.GetHumanReadableString()}");
 }
 
+sw.Stop();
 Console.WriteLine($"MinSeed: {minSeed} at MinLocation: {minLocation}");
+Console.WriteLine($"{sw.Elapsed.GetHumanReadableString()}");
 
 

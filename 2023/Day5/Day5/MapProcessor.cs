@@ -5,6 +5,17 @@ namespace Day5;
 public class MapProcessor
 {
     public List<Int64> Seeds { get; set; }
+    
+    public List<(Int64, Int64)> GetSeedsAsRange()
+    {
+        var seedRanges = new List<(Int64, Int64)>();
+        for (var i = 0; i < Seeds.Count(); i += 2)
+        {
+            seedRanges.Add((Seeds[i], Seeds[i+1]));
+        }
+
+        return seedRanges;
+    }
     public Dictionary<Category, Map> Maps { get; set; } = new();
     
     public MapProcessor(string file)
