@@ -12,7 +12,11 @@ namespace Day4
             var cards = input.Select(c => new Card(c)).ToList();
             var totalScore = cards.Sum(c => c.GetScore());
             cards.ForEach(c=>c.Print());
-            Console.WriteLine($"Total: {totalScore}");
+
+            var totalCards = new CardProcessor().Process(cards);
+            
+            Console.WriteLine($"TotalScore: {totalScore}");
+            Console.WriteLine($"TotalCards: {totalCards}");
         }
     }
 }

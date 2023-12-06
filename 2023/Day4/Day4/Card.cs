@@ -10,6 +10,7 @@ namespace Day4
         public List<int> WinningNumbers { get; set; }
         public List<int> RandomNumbers { get; set; }
         public List<int> MatchingNumbers => RandomNumbers.Join(WinningNumbers, r => r, w => w, (r, w) => r).ToList();
+        
         public int GetScore()
         {
             var mn = MatchingNumbers;
