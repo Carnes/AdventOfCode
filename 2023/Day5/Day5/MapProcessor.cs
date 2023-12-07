@@ -72,6 +72,4 @@ public class MapProcessor
         
         Maps.Add(map.From, map);
     }
-    
-    
 }
