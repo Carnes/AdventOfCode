@@ -2,9 +2,9 @@ namespace Day5;
 
 public class Map
 {
-    public Category To { get; set; }
-    public Category From { get; set; }
-    public List<Mapping> Mappings { get; set; } = new();
+    public Category To;
+    public Category From;
+    public List<Mapping> Mappings = new();
 
     public Map(string input)
     {

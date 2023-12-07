@@ -2,9 +2,9 @@ namespace Day5;
 
 public class Mapping
 {
-    public Int64 DestinationStart { get; set; }
-    public Int64 SourceStart { get; set; }
-    public Int64 RangeLength { get; set; }
+    public Int64 DestinationStart;
+    public Int64 SourceStart;
+    public Int64 RangeLength;
 
     public Mapping(string input)
     {

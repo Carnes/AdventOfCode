@@ -4,7 +4,7 @@ namespace Day5;
 
 public class MapProcessor
 {
-    public List<Int64> Seeds { get; set; }
+    public List<Int64> Seeds;
     
     public List<(Int64, Int64)> GetSeedsAsRange()
     {
@@ -28,14 +28,18 @@ public class MapProcessor
 
     public Int64 Get(Category from, Category to, Int64 fromValue)
     {
-        if (Maps.TryGetValue(from, out var map))
+        while (true)
         {
-            var toValue = map.GetTo(fromValue);
-            if (map.To == to)
-                return toValue;
-            return Get(map.To, to, toValue);
+            if (Maps.TryGetValue(from, out var map))
+            {
+                var toValue = map.GetTo(fromValue);
+                if (map.To == to) return toValue;
+                from = map.To;
+                fromValue = toValue;
+            }
+            else
+                throw new Exception($"Couldn't find map that starts with {from}");
         }
-        else throw new Exception($"Couldn't find map that starts with {from}");
     }
 
     private void BuildMaps(List<string> input)
