@@ -4,29 +4,30 @@ namespace Day5;
 
 public class MapProcessor
 {
-    public List<Int64> Seeds;
+    private List<long> _seeds;
     
-    public List<(Int64, Int64)> GetSeedsAsRange()
+    public List<(long, long)> GetSeedsAsRange()
     {
-        var seedRanges = new List<(Int64, Int64)>();
-        for (var i = 0; i < Seeds.Count(); i += 2)
+        var seedRanges = new List<(long, long)>();
+        for (var i = 0; i < _seeds.Count; i += 2)
         {
-            seedRanges.Add((Seeds[i], Seeds[i+1]));
+            seedRanges.Add((_seeds[i], _seeds[i+1]));
         }
 
         return seedRanges;
     }
-    public Dictionary<Category, Map> Maps { get; set; } = new();
+
+    private Dictionary<Category, Map> Maps { get; set; } = new();
     
     public MapProcessor(string file)
     {
         var data = File.ReadAllLines(file);
         var seeds = data[0].Split(":")[1].Split(" ").Where(x=>x.Any());
-        Seeds = seeds.Select(x => Int64.Parse(x)).ToList();
+        _seeds = seeds.Select(long.Parse).ToList();
         BuildMaps(data.Skip(2).ToList());
     }
 
-    public Int64 Get(Category from, Category to, Int64 fromValue)
+    public long Get(Category from, Category to, long fromValue)
     {
         while (true)
         {
@@ -67,7 +68,7 @@ public class MapProcessor
         foreach (var row in input)
         {
             var mapping = new Mapping(row);
-            map.Mappings.Add(mapping);
+            map.AddMapping(mapping);
         }
         
         Maps.Add(map.From, map);

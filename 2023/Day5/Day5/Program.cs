@@ -5,8 +5,9 @@ var sw = new Stopwatch();
 sw.Start();
 
 var ip = new MapProcessor("input.txt");
-var minLocation = Int64.MaxValue;
-var minSeed = Int64.MaxValue;
+// var ip = new MapProcessor("inputExample.txt");
+var minLocation = long.MaxValue;
+var minSeed = long.MaxValue;
 
 foreach (var seedRange in ip.GetSeedsAsRange())
 {

@@ -2,9 +2,9 @@ namespace Day5;
 
 public class Map
 {
-    public Category To;
-    public Category From;
-    public List<Mapping> Mappings = new();
+    public readonly Category To;
+    public readonly Category From;
+    private Mapping[] _mappings = Array.Empty<Mapping>();
 
     public Map(string input)
     {
@@ -13,15 +13,20 @@ public class Map
         To = Enum.Parse<Category>(fromAndTo[1]);
     }
 
-    public Int64 GetTo(Int64 from)
+    public void AddMapping(Mapping m)
     {
-        foreach (var m in Mappings)
+        var mappings = _mappings.ToList();
+        mappings.Add(m);
+        _mappings = mappings.OrderByDescending(x => x.SourceStart).ToArray();
+    }
+
+    public long GetTo(long from)
+    {
+        foreach (var m in _mappings)
         {
-            if (m.SourceStart <= from && m.SourceStart + m.RangeLength >= from)
-            {
-                var to = from - m.SourceStart + m.DestinationStart;
-                return to;        
-            }
+            if (m.SourceStart > from || m.SourceStart + m.RangeLength < from) continue;
+            var to = from - m.SourceStart + m.DestinationStart;
+            return to;
         }
 
         return from;
