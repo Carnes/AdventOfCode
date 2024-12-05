@@ -2,7 +2,9 @@
 
 var numbersLeft = new List<int>();
 var numbersRight = new List<int>();
-var numbersDist = new List<int>();
+var totalDist = 0;
+var totalSimilarity = 0;
+
 foreach (var line in input)
 {
     var lineSplit = line.Split("   ");
@@ -14,10 +16,13 @@ numbersRight.Sort();
 
 for (var i = 0; i < input.Length; i++)
 {
-    var dist = Math.Abs(numbersLeft[i] - numbersRight[i]);
-    numbersDist.Add(dist);
-    Console.WriteLine($"L: {numbersLeft[i]}, R: {numbersRight[i]}, Dist: {dist}");
+    var leftNum = numbersLeft[i];
+    var rightNum = numbersRight[i];
+    var dist = Math.Abs(leftNum - rightNum);
+    var similarity = leftNum * numbersRight.Count(x => x == leftNum);
+    totalDist += dist;
+    totalSimilarity += similarity;
+    Console.WriteLine($"L: {leftNum}, R: {rightNum}, Dist: {dist}, Sim: {similarity}");
 }
 
-var totalDist = numbersDist.Sum();
-Console.WriteLine(totalDist);
+Console.WriteLine($"Total Dist: {totalDist}, Similarity: {totalSimilarity}");
