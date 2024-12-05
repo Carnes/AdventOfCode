@@ -1,4 +1,4 @@
-﻿var input = await File.ReadAllLinesAsync("data_sample.txt");
+﻿var input = await File.ReadAllLinesAsync("data_prod.txt");
 
 var numbersLeft = new List<int>();
 var numbersRight = new List<int>();
