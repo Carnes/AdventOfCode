@@ -43,8 +43,8 @@ public class Report
     {
         var prevColor = Console.ForegroundColor;
         if(IsSafe) Console.ForegroundColor = ConsoleColor.Green;
+            else Console.ForegroundColor = ConsoleColor.Red;
             
-        Console.Write($"IsSafe: {IsSafe}");
         foreach (var level in _levels)
             Console.Write($"{level} ");
         
