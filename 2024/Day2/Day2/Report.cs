@@ -51,8 +51,6 @@ public class Report
         Console.WriteLine();
         Console.ForegroundColor = prevColor;
     }
-
-    
     
     private static bool CalcIsSafe(Stack<int> remainingLevels, bool? isAscending = null)
     {
