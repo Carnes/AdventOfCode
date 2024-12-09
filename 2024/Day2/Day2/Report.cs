@@ -2,22 +2,41 @@
 
 public class Report
 {
-    public List<int> Levels;
-    public bool? _isSafe = null;
+    private readonly List<int> _levels;
+    private bool? _isSafe = null;
 
     public Report(List<int> levels)
     {
-        Levels = levels;
+        _levels = levels;
     }
 
     public bool IsSafe
     {
         get
         {
-            if(_isSafe == null)
-                _isSafe = CalcIsSafe(new Stack<int>(Levels));
+            if (_isSafe == null)
+            {
+                _isSafe = CalcIsSafe(new Stack<int>(_levels));
+                if (_isSafe == false)
+                    _isSafe = CalcDampenedIsSafe();
+            }
+
             return _isSafe.Value;
         }
+    }
+
+    private bool CalcDampenedIsSafe()
+    {
+        List<int> dampedLevels;
+        for (var i = 0; i < _levels.Count; i++)
+        {
+            dampedLevels = _levels.ToList();
+            dampedLevels.RemoveAt(i);
+            var isSafe = CalcIsSafe(new Stack<int>(dampedLevels));
+            if (isSafe) return true;
+        }
+
+        return false;
     }
 
     public void Print()
@@ -25,14 +44,16 @@ public class Report
         var prevColor = Console.ForegroundColor;
         if(IsSafe) Console.ForegroundColor = ConsoleColor.Green;
             
-        Console.Write($"IsSafe: {IsSafe}, ");
-        foreach (var level in Levels)
+        Console.Write($"IsSafe: {IsSafe}");
+        foreach (var level in _levels)
             Console.Write($"{level} ");
         
         Console.WriteLine();
         Console.ForegroundColor = prevColor;
     }
 
+    
+    
     private static bool CalcIsSafe(Stack<int> remainingLevels, bool? isAscending = null)
     {
         var current = remainingLevels.Pop();
