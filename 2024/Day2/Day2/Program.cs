@@ -1,6 +1,6 @@
 ﻿using Day2;
 
-var input = await File.ReadAllLinesAsync("input_sample.txt");
+var input = await File.ReadAllLinesAsync("input.txt");
 var numSafe = 0;
 
 foreach (var reportData in input)
