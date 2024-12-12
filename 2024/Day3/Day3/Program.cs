@@ -1,4 +1,4 @@
-﻿var corruptedData = await File.ReadAllTextAsync("input_sample.txt");
+﻿var corruptedData = await File.ReadAllTextAsync("input.txt");
 var possibleInstructions = corruptedData.Split("mul(");
 var sumOfMul = 0;
 
