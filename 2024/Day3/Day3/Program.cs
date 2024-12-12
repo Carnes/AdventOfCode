@@ -1,20 +1,21 @@
-﻿var corruptedData = await File.ReadAllTextAsync("input.txt");
-var possibleInstructions = corruptedData.Split("mul(");
-var sumOfMul = 0;
+﻿using Day3;
 
-foreach (var instruction in possibleInstructions)
+var corruptedData = await File.ReadAllTextAsync("input.txt");
+
+var instructions = new List<InstructionBase>
 {
-    sumOfMul += TryMulInstruction(instruction) ?? 0;
+    new DoMul(), 
+    new DoNotMul(), 
+    new MulInstruction()
+};
+
+for (var i = 0; i < corruptedData.Length; i++)
+{
+    foreach(var instruction in instructions)
+        if (instruction.IsInstruction(corruptedData, i))
+        {
+            i += instruction.TryExecute(corruptedData, i);
+        }
 }
 
-Console.WriteLine(sumOfMul);
-int? TryMulInstruction(string instruction)
-{
-    var endArgs = instruction.IndexOf(")");
-    if (endArgs < 1) return null;
-    var argsCombined = instruction.Substring(0,endArgs);
-    var args = argsCombined.Split(",");
-    if (!int.TryParse(args[0], out int x)) return null;
-    if (!int.TryParse(args[1], out int y)) return null;
-    return x * y;
-}
+Console.WriteLine($"MulSum: {State.MulSum}");
